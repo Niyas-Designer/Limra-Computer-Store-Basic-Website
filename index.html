@@ -55,6 +55,20 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="service-loader" id="serviceLoader" role="status" aria-live="polite" aria-label="Preparing Limra Computers services">
+    <div class="loader-glow loader-glow-one"></div>
+    <div class="loader-glow loader-glow-two"></div>
+    <div class="loader-grid"></div>
+    <div class="loader-card">
+      <img class="loader-logo" src="Src/Logo Images/Logos-01-transparent.png" alt="Limra Computers">
+      <div class="loader-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="loader-service" id="loaderService">Computer Repair</div>
+      <p class="loader-typing" id="loaderTyping"></p>
+      <div class="loader-progress"><span id="loaderProgress"></span></div>
+      <div class="loader-meta"><span>Limra Technology Care</span><strong id="loaderPercent">0%</strong></div>
+    </div>
+  </div>
+
   <div class="topbar">
     <div class="wrap topbar-inner">
       <span>Computer sales, service & security solutions</span>
@@ -76,6 +90,7 @@
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#services">Services</a>  
+        <a href="#plans">Plans</a>
         <a href="#about">About</a>
         <a href="#gallery">Gallery</a>
         <a href="#location">Location</a>
@@ -113,8 +128,8 @@
             <p><b>Service desk open</b><small>Call for same-day availability</small></p>
           </div>
           <div class="hero-number">10+</div>
-          <div class="hero-number-label">Years of<br>technical care</div>
-          <div class="hero-corner-copy">Sales · Service · Security</div>
+          <!-- <div class="hero-number-label">Years of<br>technical care</div>
+          <div class="hero-corner-copy">Sales · Service · Security</div> -->
         </div>
       </div>
       <div class="service-strip">
@@ -172,6 +187,47 @@
             <a href="https://wa.me/919043728522?text=Show%20me%20available%20computers" target="_blank" rel="noopener">Check availability <span>→</span></a>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="section plans-section" id="plans">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><span class="kicker">Service Plans</span><h2>Affordable computer<br>service plans.</h2></div>
+          <p>From essential maintenance to complete IT support, choose a professional service plan built around your needs.</p>
+        </div>
+        <div class="plans-grid">
+          <article class="plan-card essential reveal">
+            <div class="plan-top"><span class="plan-dot"></span><span>Essential Care</span></div>
+            <div class="plan-price"><strong>₹1,999</strong><small>Starting price</small></div>
+            <p>Essential maintenance designed to protect your computer’s health and everyday performance.</p>
+            <div class="plan-includes"><span>Includes</span><ul><li>Internal Cleaning</li><li>Dust Removal</li><li>Basic System Checkup</li><li>Performance Inspection</li></ul></div>
+            <a class="button plan-button" href="https://wa.me/919043728522?text=Hello%20Limra%20Computers%2C%20I%20am%20interested%20in%20the%20Essential%20Care%20plan." target="_blank" rel="noopener">WhatsApp Now <span>↗</span></a>
+          </article>
+          <article class="plan-card complete reveal">
+            <span class="popular-badge">Most Popular</span>
+            <div class="plan-top"><span class="plan-dot"></span><span>Complete Care</span></div>
+            <div class="plan-price"><strong>₹4,999</strong><small>Starting price</small></div>
+            <p>A complete software service package for personal computers and everyday users.</p>
+            <div class="plan-includes"><span>Includes</span><ul><li>Everything in Essential Care</li><li>Operating System Installation</li><li>Driver Installation</li><li>Software Setup</li><li>Performance Optimization</li><li>Basic Troubleshooting</li></ul></div>
+            <a class="button plan-button" href="https://wa.me/919043728522?text=Hello%20Limra%20Computers%2C%20I%20am%20interested%20in%20the%20Complete%20Care%20plan." target="_blank" rel="noopener">Get Started <span>↗</span></a>
+          </article>
+          <article class="plan-card performance reveal">
+            <div class="plan-top"><span class="plan-dot"></span><span>Performance Upgrade</span></div>
+            <div class="plan-price"><strong>₹3,999</strong><small>Starting price</small></div>
+            <p>A focused plan for customers who want better computer speed, stability and performance.</p>
+            <div class="plan-includes"><span>Includes</span><ul><li>System Cleaning</li><li>OS Reinstallation</li><li>SSD Upgrade Support</li><li>RAM Upgrade Support</li><li>System Optimization</li><li>Upgrade Configuration Support</li></ul></div>
+            <a class="button plan-button" href="https://wa.me/919043728522?text=Hello%20Limra%20Computers%2C%20I%20am%20interested%20in%20the%20Performance%20Upgrade%20plan." target="_blank" rel="noopener">Upgrade My PC <span>↗</span></a>
+          </article>
+          <article class="plan-card business reveal">
+            <div class="plan-top"><span class="plan-dot"></span><span>Business IT Solutions</span></div>
+            <div class="plan-price"><strong>Contact Us</strong><small>Custom solutions</small></div>
+            <p>Tailored IT solutions for businesses, offices, educational institutions and technology teams.</p>
+            <div class="plan-includes"><span>Includes</span><ul><li>Multiple System Support</li><li>AMC Services</li><li>Network Setup</li><li>Security Solutions</li><li>On-Site Technical Support</li><li>Dedicated IT Assistance</li></ul></div>
+            <a class="button plan-button" href="https://wa.me/919043728522?text=Hello%20Limra%20Computers%2C%20I%20need%20a%20quote%20for%20Business%20IT%20Solutions." target="_blank" rel="noopener">Request a Quote <span>↗</span></a>
+          </article>
+        </div>
+        <p class="plans-note reveal">Final pricing depends on device condition, required parts and the confirmed scope of work.</p>
       </div>
     </section>
 
@@ -382,6 +438,7 @@
         <a href="#home">Home</a>
         <a href="#about">About Us</a>
         <a href="#services">All Services</a>
+        <a href="#plans">Service Plans</a>
         <a href="#gallery">Our Store</a>
         <a href="#reviews">Google Reviews</a>
         <a href="#contact">Contact Center</a>

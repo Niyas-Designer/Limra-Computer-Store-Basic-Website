@@ -5,6 +5,78 @@ const toTop = document.querySelector('.to-top');
 const languageToggle = document.querySelector('.language-toggle');
 const aiFloat = document.querySelector('.ai-float');
 const aiChat = document.querySelector('.ai-chat');
+const serviceLoader = document.getElementById('serviceLoader');
+const loaderService = document.getElementById('loaderService');
+const loaderTyping = document.getElementById('loaderTyping');
+const loaderProgress = document.getElementById('loaderProgress');
+const loaderPercent = document.getElementById('loaderPercent');
+
+history.scrollRestoration = 'manual';
+function forcePageTop() {
+  const previousBehavior = document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior = 'auto';
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  requestAnimationFrame(() => {
+    document.documentElement.style.scrollBehavior = previousBehavior;
+  });
+}
+forcePageTop();
+document.body.classList.add('loader-active');
+
+function runServiceLoader() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const services = ['Computer Repair', 'Laptop Repair', 'System Cleaning', 'OS Installation', 'Software Support', 'Hardware Upgrades', 'CCTV Solutions', 'Networking Services', 'AMC Support', 'Business IT Solutions'];
+  const typingText = 'Preparing Your Technology Solutions...';
+  const duration = reducedMotion ? 250 : 4000;
+  const start = performance.now();
+  let serviceIndex = 0;
+  let typedCharacters = 0;
+
+  const serviceTimer = setInterval(() => {
+    loaderService.classList.add('changing');
+    setTimeout(() => {
+      serviceIndex = (serviceIndex + 1) % services.length;
+      loaderService.textContent = services[serviceIndex];
+      loaderService.classList.remove('changing');
+    }, reducedMotion ? 0 : 150);
+  }, reducedMotion ? 100 : 360);
+
+  const typingTimer = setInterval(() => {
+    typedCharacters = Math.min(typingText.length, typedCharacters + 1);
+    loaderTyping.textContent = typingText.slice(0, typedCharacters);
+    if (typedCharacters === typingText.length) clearInterval(typingTimer);
+  }, reducedMotion ? 5 : 65);
+
+  function updateProgress(now) {
+    const progress = Math.min(100, Math.round(((now - start) / duration) * 100));
+    loaderProgress.style.width = `${progress}%`;
+    loaderPercent.textContent = `${progress}%`;
+    if (progress < 100) {
+      requestAnimationFrame(updateProgress);
+      return;
+    }
+    clearInterval(serviceTimer);
+    clearInterval(typingTimer);
+    loaderTyping.textContent = typingText;
+    loaderService.textContent = 'Business IT Solutions';
+    setTimeout(() => {
+      serviceLoader.classList.add('loader-done');
+      document.body.classList.remove('loader-active');
+      document.body.classList.add('loader-revealed');
+      forcePageTop();
+    }, reducedMotion ? 0 : 250);
+  }
+
+  requestAnimationFrame(updateProgress);
+}
+
+window.addEventListener('pageshow', () => {
+  if (window.location.hash) history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+  forcePageTop();
+  runServiceLoader();
+}, { once: true });
 
 const tamilTranslations = {
   'Computer sales, service & security solutions': 'கணினி விற்பனை, சேவை மற்றும் பாதுகாப்புத் தீர்வுகள்',
@@ -182,7 +254,52 @@ const tamilTranslations = {
   'Vanakkam! Tell me what is wrong with your computer, or choose a quick question below.': 'வணக்கம்! உங்கள் கணினியில் உள்ள பிரச்சினையைச் சொல்லுங்கள் அல்லது கீழே உள்ள கேள்வியைத் தேர்ந்தெடுக்கவும்.',
   'Laptop is slow': 'லேப்டாப் மெதுவாக உள்ளது',
   'Not turning on': 'ஆன் ஆகவில்லை',
-  'Need CCTV': 'CCTV தேவை'
+  'Need CCTV': 'CCTV தேவை',
+  'Plans': 'திட்டங்கள்',
+  'Service Plans': 'சேவைத் திட்டங்கள்',
+  'Affordable computer': 'உங்கள் கணினிக்கான சரியான',
+  'service plans.': 'சேவைத் திட்டத்தைத் தேர்வு செய்யுங்கள்',
+  'From essential maintenance to complete IT support, choose a professional service plan built around your needs.': 'அடிப்படை பராமரிப்பிலிருந்து முழுமையான IT ஆதரவு வரை, உங்கள் தேவைக்கேற்ற தொழில்முறை சேவைத் திட்டங்கள்.',
+  'Essential Care': 'அடிப்படை பராமரிப்பு',
+  'Complete Care': 'முழுமையான பராமரிப்பு',
+  'Performance Upgrade': 'செயல்திறன் மேம்பாடு',
+  'Business IT Solutions': 'வணிக IT தீர்வுகள்',
+  'Starting price': 'தொடக்க விலை',
+  'Custom solutions': 'தனிப்பயன் தீர்வுகள்',
+  'Contact Us': 'எங்களைத் தொடர்புகொள்ளுங்கள்',
+  'Essential maintenance designed to protect your computer’s health and everyday performance.': 'சாதாரண பராமரிப்பு மற்றும் கணினி ஆரோக்கியத்தை பாதுகாக்கும் அடிப்படை சேவை.',
+  'A complete software service package for personal computers and everyday users.': 'தனிப்பட்ட பயனர்களுக்கான முழுமையான Software Service Package.',
+  'A focused plan for customers who want better computer speed, stability and performance.': 'கணினியின் வேகத்தையும் செயல்திறனையும் மேம்படுத்த விரும்புபவர்களுக்கான திட்டம்.',
+  'Tailored IT solutions for businesses, offices, educational institutions and technology teams.': 'நிறுவனங்கள், அலுவலகங்கள், கல்வி நிறுவனங்கள் மற்றும் IT நிறுவனங்களுக்கான தனிப்பயன் தீர்வுகள்.',
+  'Includes': 'உள்ளடக்கம்',
+  'Internal Cleaning': 'உட்புற சுத்தம்',
+  'Dust Removal': 'தூசி அகற்றுதல்',
+  'Basic System Checkup': 'அடிப்படை கணினி பரிசோதனை',
+  'Performance Inspection': 'செயல்திறன் பரிசோதனை',
+  'Everything in Essential Care': 'அடிப்படை பராமரிப்பில் உள்ள அனைத்தும்',
+  'Operating System Installation': 'Operating System நிறுவல்',
+  'Driver Installation': 'Driver நிறுவல்',
+  'Software Setup': 'Software அமைப்பு',
+  'Performance Optimization': 'செயல்திறன் மேம்படுத்தல்',
+  'Basic Troubleshooting': 'அடிப்படை சிக்கல் தீர்வு',
+  'System Cleaning': 'கணினி சுத்தம்',
+  'OS Reinstallation': 'OS மறுநிறுவல்',
+  'SSD Upgrade Support': 'SSD மேம்பாட்டு உதவி',
+  'RAM Upgrade Support': 'RAM மேம்பாட்டு உதவி',
+  'System Optimization': 'கணினி மேம்படுத்தல்',
+  'Upgrade Configuration Support': 'மேம்பாட்டு அமைப்பு உதவி',
+  'Multiple System Support': 'பல கணினிகளுக்கான ஆதரவு',
+  'AMC Services': 'AMC சேவைகள்',
+  'Network Setup': 'நெட்வொர்க் அமைப்பு',
+  'Security Solutions': 'பாதுகாப்புத் தீர்வுகள்',
+  'On-Site Technical Support': 'நேரடி இட தொழில்நுட்ப ஆதரவு',
+  'Dedicated IT Assistance': 'பிரத்யேக IT உதவி',
+  'Most Popular': 'மிகவும் பிரபலமானது',
+  'WhatsApp Now': 'வாட்ஸ்அப்பில் தொடர்புகொள்ள',
+  'Get Started': 'தொடங்குங்கள்',
+  'Upgrade My PC': 'என் கணினியை மேம்படுத்தவும்',
+  'Request a Quote': 'விலை விவரம் பெறுங்கள்',
+  'Final pricing depends on device condition, required parts and the confirmed scope of work.': 'இறுதி விலை சாதனத்தின் நிலை, தேவையான பாகங்கள் மற்றும் உறுதிசெய்யப்பட்ட பணியைப் பொறுத்தது.'
 };
 const attributeTranslations = {
   'Enter your name': 'உங்கள் பெயரை உள்ளிடுங்கள்',
@@ -199,7 +316,7 @@ const attributeTranslations = {
   'Image preview': 'பட முன்னோட்டம்',
   'Close image': 'படத்தை மூடவும்'
 };
-let currentLanguage = localStorage.getItem('limraLanguage') || 'en';
+let currentLanguage = 'en';
 const originalTextNodes = new WeakMap();
 
 function translateTextNodes(language) {
@@ -236,7 +353,6 @@ function applyLanguage(language) {
   translateAttributes(language);
   languageToggle.textContent = language === 'en' ? 'தமிழ்' : 'English';
   languageToggle.setAttribute('aria-label', language === 'en' ? 'தமிழில் பார்க்க' : 'View in English');
-  localStorage.setItem('limraLanguage', language);
 }
 
 function setMenu(open) {
