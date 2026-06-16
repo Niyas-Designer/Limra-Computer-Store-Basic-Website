@@ -5,6 +5,9 @@ const toTop = document.querySelector('.to-top');
 const languageToggle = document.querySelector('.language-toggle');
 const aiFloat = document.querySelector('.ai-float');
 const aiChat = document.querySelector('.ai-chat');
+const inquiryPanel = document.getElementById('inquiryPanel');
+const inquiryTab = document.getElementById('inquiryTab');
+const inquiryClose = document.getElementById('inquiryClose');
 const serviceLoader = document.getElementById('serviceLoader');
 const loaderService = document.getElementById('loaderService');
 const loaderTyping = document.getElementById('loaderTyping');
@@ -118,12 +121,14 @@ const tamilTranslations = {
   'Repairs': 'பழுதுபார்ப்பு',
   'Security': 'பாதுகாப்பு',
   'Sales': 'விற்பனை',
+  'Desktop, Laptop and Printer Repair': 'டெஸ்க்டாப், லேப்டாப் மற்றும் பிரிண்டர் பழுதுபார்ப்பு',
   'Laptop Repair': 'லேப்டாப் பழுதுபார்ப்பு',
-  'Screen, keyboard, battery, hinge, overheating and advanced motherboard repair.': 'திரை, விசைப்பலகை, பேட்டரி, கீல், அதிக வெப்பம் மற்றும் மதர்போர்டு பழுதுபார்ப்பு.',
+  'Reliable repair support for desktops, laptops, printers, screens, keyboards and hardware faults.': 'டெஸ்க்டாப், லேப்டாப், பிரிண்டர், திரை, விசைப்பலகை மற்றும் ஹார்ட்வேர் கோளாறுகளுக்கான நம்பகமான பழுதுபார்ப்பு சேவை.',
   'Ask about repair': 'பழுது குறித்து கேளுங்கள்',
+  'Advanced Chip-Level Service': 'மேம்பட்ட Chip-Level சேவை',
   'Desktop Service': 'டெஸ்க்டாப் சேவை',
-  'Hardware upgrades, OS setup, performance tuning and custom PC assembly.': 'ஹார்ட்வேர் மேம்பாடு, OS நிறுவல், செயல்திறன் மேம்பாடு மற்றும் தனிப்பயன் PC அமைப்பு.',
-  'Ask about service': 'சேவை குறித்து கேளுங்கள்',
+  'Expert motherboard diagnosis, IC replacement and component-level service for complex hardware issues.': 'சிக்கலான ஹார்ட்வேர் பிரச்சினைகளுக்கு மதர்போர்டு பரிசோதனை, IC மாற்றம் மற்றும் component-level சேவை.',
+  'Ask about chip-level service': 'Chip-Level சேவை குறித்து கேளுங்கள்',
   'CCTV Installation': 'CCTV நிறுவல்',
   'Smart surveillance for homes, shops and factories with remote mobile viewing.': 'மொபைல் தொலைநோக்கு வசதியுடன் வீடுகள், கடைகள் மற்றும் தொழிற்சாலைகளுக்கான பாதுகாப்பு அமைப்பு.',
   'Get CCTV quote': 'CCTV விலை விவரம்',
@@ -133,8 +138,9 @@ const tamilTranslations = {
   'Upgrades & Parts': 'மேம்பாடுகள் மற்றும் பாகங்கள்',
   'SSD, RAM and essential accessories selected to suit your device and budget.': 'உங்கள் சாதனம் மற்றும் பட்ஜெட்டுக்கு ஏற்ற SSD, RAM மற்றும் அத்தியாவசிய உபகரணங்கள்.',
   'Find an upgrade': 'மேம்பாட்டைத் தேர்வு செய்யுங்கள்',
+  'Computer, Laptop and Printer Sales': 'கணினி, லேப்டாப் மற்றும் பிரிண்டர் விற்பனை',
   'Computer Sales': 'கணினி விற்பனை',
-  'New and pre-owned computers for everyday work, business and study.': 'தினசரி வேலை, வணிகம் மற்றும் கல்விக்கான புதிய மற்றும் பயன்படுத்தப்பட்ட கணினிகள்.',
+  'New and pre-owned computers, laptops and printers selected for home, business and study needs.': 'வீடு, வணிகம் மற்றும் கல்வி தேவைகளுக்கான புதிய மற்றும் பயன்படுத்தப்பட்ட கணினிகள், லேப்டாப்கள் மற்றும் பிரிண்டர்கள்.',
   'Check availability': 'கிடைப்பைச் சரிபார்க்கவும்',
   'Why Limra': 'ஏன் லிம்ரா',
   'Real expertise.': 'உண்மையான நிபுணத்துவம்.',
@@ -255,6 +261,9 @@ const tamilTranslations = {
   'Laptop is slow': 'லேப்டாப் மெதுவாக உள்ளது',
   'Not turning on': 'ஆன் ஆகவில்லை',
   'Need CCTV': 'CCTV தேவை',
+  'Quick Enquiry': 'விரைவு விசாரணை',
+  'Tell us your requirement': 'உங்கள் தேவையைச் சொல்லுங்கள்',
+  'Enquiry': 'விசாரணை',
   'Plans': 'திட்டங்கள்',
   'Service Plans': 'சேவைத் திட்டங்கள்',
   'Affordable computer': 'உங்கள் கணினிக்கான சரியான',
@@ -314,7 +323,10 @@ const attributeTranslations = {
   'Close AI support': 'AI உதவியை மூடவும்',
   'Back to top': 'மேலே செல்லவும்',
   'Image preview': 'பட முன்னோட்டம்',
-  'Close image': 'படத்தை மூடவும்'
+  'Close image': 'படத்தை மூடவும்',
+  'Open enquiry form': 'விசாரணை படிவத்தைத் திறக்கவும்',
+  'Close enquiry form': 'விசாரணை படிவத்தை மூடவும்',
+  'User enquiry form': 'பயனர் விசாரணை படிவம்'
 };
 let currentLanguage = 'en';
 const originalTextNodes = new WeakMap();
@@ -486,20 +498,43 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') {
     closeLightbox();
     setMenu(false);
+    setInquiryPanel(false);
   }
 });
 
-document.getElementById('inquiryForm').addEventListener('submit', event => {
+function submitInquiryForm(event, fields) {
   event.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const service = document.getElementById('service').value;
-  const message = document.getElementById('message').value.trim() || (currentLanguage === 'ta' ? 'மேலும் விவரங்களுக்கு என்னைத் தொடர்புகொள்ளவும்.' : 'Please contact me with more details.');
+  const name = document.getElementById(fields.name).value.trim();
+  const phone = document.getElementById(fields.phone).value.trim();
+  const service = document.getElementById(fields.service).value;
+  const message = document.getElementById(fields.message).value.trim() || (currentLanguage === 'ta' ? 'மேலும் விவரங்களுக்கு என்னைத் தொடர்புகொள்ளவும்.' : 'Please contact me with more details.');
   const text = currentLanguage === 'ta'
     ? `வணக்கம் Limra Computers,\n\nபெயர்: ${name}\nதொலைபேசி: ${phone}\nசேவை: ${service}\nசெய்தி: ${message}`
     : `Hello Limra Computers,\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nMessage: ${message}`;
   window.open(`https://wa.me/919043728522?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-});
+}
+
+document.getElementById('inquiryForm').addEventListener('submit', event => submitInquiryForm(event, {
+  name: 'name',
+  phone: 'phone',
+  service: 'service',
+  message: 'message'
+}));
+
+document.getElementById('floatingInquiryForm').addEventListener('submit', event => submitInquiryForm(event, {
+  name: 'floatingName',
+  phone: 'floatingPhone',
+  service: 'floatingService',
+  message: 'floatingMessage'
+}));
+
+function setInquiryPanel(open) {
+  inquiryPanel.classList.toggle('open', open);
+  inquiryTab.classList.toggle('show', !open);
+}
+
+inquiryClose.addEventListener('click', () => setInquiryPanel(false));
+inquiryTab.addEventListener('click', () => setInquiryPanel(true));
 
 document.getElementById('year').textContent = new Date().getFullYear();
 applyLanguage(currentLanguage);

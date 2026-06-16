@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limra Computers | Expert Computer & CCTV Service in Tiruppur</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fffdf4',
+                            100: '#fffbe0',
+                            200: '#fef3b2',
+                            300: '#fce87e',
+                            400: '#fadd4a',
+                            500: '#f4b61b', /* Primary Logo Gold */
+                            600: '#db940f',
+                            700: '#b76e09',
+                            800: '#94550e',
+                            900: '#7a4511',
+                        },
+                        whatsapp: {
+                            DEFAULT: '#25D366',
+                            hover: '#128C7E',
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles for scrollbar and specific components */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f4b61b; }
+        
+        body { font-family: 'Inter', sans-serif; }
+        
+        .chat-open { transform: translateY(0); opacity: 1; visibility: visible; }
+        .chat-closed { transform: translateY(20px); opacity: 0; visibility: hidden; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 100ms; }
+        .reveal-delay-2 { transition-delay: 200ms; }
+        .reveal-delay-3 { transition-delay: 300ms; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 antialiased overflow-x-hidden">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gray-900 text-gray-200 text-xs md:text-sm py-2">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2">
+            <div class="flex items-center space-x-4">
+                <a href="tel:+919043728522" class="hover:text-brand-400 flex items-center gap-1 transition-colors">
+                    <i class="fa-solid fa-phone text-brand-500"></i> 90437 28522
+                </a>
+                <span class="hidden md:inline border-l border-gray-700 h-4"></span>
+                <span class="hidden md:flex items-center gap-1">
+                    <i class="fa-solid fa-clock text-brand-500"></i> Mon - Sat: 9:30 AM - 8:30 PM
+                </span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://wa.me/919043728522" target="_blank" class="text-whatsapp hover:text-green-400 font-medium flex items-center gap-1 transition-colors">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> <span data-en="Support" data-ta="உதவி">Support</span>
+                </a>
+                <span class="border-l border-gray-700 h-4"></span>
+                <button onclick="toggleLanguage()" class="hover:text-white flex items-center gap-1 transition-colors group">
+                    <i class="fa-solid fa-globe text-brand-500 group-hover:animate-spin"></i> 
+                    <span data-en="தமிழ் / EN" data-ta="EN / தமிழ்">தமிழ் / EN</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100">
+        <div class="container mx-auto px-4 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center">
+                <img src="image_383b82.png" alt="Limra Computers Logo" class="h-12 md:h-16 w-auto object-contain drop-shadow-sm">
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-8">
+                <a href="#home" class="text-sm font-semibold text-brand-600 border-b-2 border-brand-600 pb-1" data-en="Home" data-ta="முகப்பு">Home</a>
+                <a href="#about" class="text-sm font-semibold text-gray-600 hover:text-brand-600 transition-colors" data-en="About Us" data-ta="எங்களை பற்றி">About Us</a>
+                <div class="relative group">
+                    <button class="text-sm font-semibold text-gray-600 hover:text-brand-600 transition-colors flex items-center gap-1">
+                        <span data-en="Services" data-ta="சேவைகள்">Services</span> <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="absolute top-full left-0 mt-2 w-48 bg-white shadow-xl rounded-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left scale-95 group-hover:scale-100">
+                        <div class="py-2">
+                            <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-600" data-en="Laptop Repair" data-ta="லேப்டாப் சர்வீஸ்">Laptop Repair</a>
+                            <a href="#services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-600" data-en="Desktop Repair" data-ta="டெஸ்க்டாப் சர்வீஸ்">Desktop Repair</a>
+                            <a href="#cctv" class="block px-4 py-2 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-600" data-en="CCTV Installation" data-ta="சிசிடிவி அமைப்பு">CCTV Installation</a>
+                            <a href="#data-recovery" class="block px-4 py-2 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-600" data-en="Data Recovery" data-ta="டேட்டா ரெக்கவரி">Data Recovery</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#contact" class="text-sm font-semibold text-gray-600 hover:text-brand-600 transition-colors" data-en="Contact" data-ta="தொடர்புக்கு">Contact</a>
+            </nav>
+
+            <!-- Desktop CTAs -->
+            <div class="hidden lg:flex items-center space-x-3">
+                <button onclick="toggleChat()" class="text-gray-700 hover:text-brand-600 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-xl text-sm font-medium flex items-center gap-2 transition-colors">
+                    <i class="fa-solid fa-robot text-brand-600"></i> <span data-en="AI Assistant" data-ta="AI உதவியாளர்">AI Assistant</span>
+                </button>
+                <a href="https://wa.me/919043728522" target="_blank" class="bg-whatsapp hover:bg-whatsapp-hover text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-green-500/30 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> <span data-en="WhatsApp Us" data-ta="வாட்ஸ்அப்">WhatsApp Us</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-gray-600 hover:text-brand-600 text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 py-4 flex flex-col space-y-4">
+                <a href="#home" class="text-gray-800 font-medium hover:text-brand-600" data-en="Home" data-ta="முகப்பு">Home</a>
+                <a href="#about" class="text-gray-800 font-medium hover:text-brand-600" data-en="About Us" data-ta="எங்களை பற்றி">About Us</a>
+                <a href="#services" class="text-gray-800 font-medium hover:text-brand-600" data-en="Services" data-ta="சேவைகள்">Services</a>
+                <a href="#contact" class="text-gray-800 font-medium hover:text-brand-600" data-en="Contact" data-ta="தொடர்புக்கு">Contact</a>
+                <div class="border-t border-gray-100 pt-4 flex flex-col gap-3">
+                    <button onclick="toggleChat(); toggleMobileMenu();" class="bg-gray-100 text-gray-800 px-4 py-2 rounded-xl font-medium flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-robot text-brand-600"></i> <span data-en="Chat with AI" data-ta="AI உடன் பேசுங்கள்">Chat with AI</span>
+                    </button>
+                    <a href="https://wa.me/919043728522" target="_blank" class="bg-whatsapp text-white px-4 py-2 rounded-xl font-bold flex justify-center items-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> <span data-en="WhatsApp Us" data-ta="வாட்ஸ்அப்">WhatsApp Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 01 — HERO SECTION -->
+    <section id="home" class="relative pt-20 pb-32 lg:pt-32 lg:pb-40 overflow-hidden bg-gray-900">
+        <!-- Abstract Tech Background -->
+        <div class="absolute inset-0 z-0 opacity-20">
+            <div class="absolute top-0 -left-1/4 w-1/2 h-full bg-brand-600 blur-[150px] rounded-full mix-blend-screen"></div>
+            <div class="absolute bottom-0 -right-1/4 w-1/2 h-full bg-yellow-600 blur-[150px] rounded-full mix-blend-screen"></div>
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-30"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left: Text Content -->
+                <div class="max-w-2xl mx-auto text-center lg:text-left reveal active">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-brand-500/30 text-brand-100 text-sm font-medium mb-8">
+                        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+                        <span data-en="Trusted Computer Service Center in Tiruppur" data-ta="திருப்பூரில் சிறந்த கணினி சேவை மையம்">Trusted Computer Service Center in Tiruppur</span>
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+                        <span data-en="Professional" data-ta="உயர்தர">Professional</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-200" data-en="IT Solutions" data-ta="தொழில்நுட்ப தீர்வுகள்">IT Solutions</span> <span data-en="& Device Repair" data-ta="& சர்வீஸ்">& Device Repair</span>
+                    </h2>
+                    
+                    <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed" data-en="Expert Laptop & Desktop Service, Chip-Level Repair, Data Recovery, and Professional CCTV Installation for Home and Business." data-ta="லேப்டாப் & டெஸ்க்டாப் சர்வீஸ், சிப்-லெவல் ரிப்பேர், டேட்டா ரெக்கவரி மற்றும் சிசிடிவி அமைப்பு - குறைந்த விலையில் சிறந்த சேவை.">
+                        Expert Laptop & Desktop Service, Chip-Level Repair, Data Recovery, and Professional CCTV Installation for Home and Business.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="https://wa.me/919043728522" target="_blank" class="w-full sm:w-auto bg-whatsapp hover:bg-whatsapp-hover text-white px-8 py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3 shadow-lg shadow-green-500/25 transition-all transform hover:-translate-y-1">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i> <span data-en="Chat on WhatsApp" data-ta="வாட்ஸ்அப்பில் மெசேஜ் செய்">Chat on WhatsApp</span>
+                        </a>
+                        <a href="tel:+919043728522" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3 transition-all">
+                            <i class="fa-solid fa-phone"></i> <span data-en="Call: 90437 28522" data-ta="அழைக்க: 90437 28522">Call: 90437 28522</span>
+                        </a>
+                    </div>
+
+                    <!-- Floating Elements below Hero -->
+                    <div class="mt-12 flex flex-wrap justify-center lg:justify-start gap-6 text-sm font-medium text-gray-400">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-brand-500"></i> <span data-en="Free Inspection" data-ta="இலவச பரிசோதனை">Free Inspection</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-brand-500"></i> <span data-en="Fast Turnaround" data-ta="விரைவான சேவை">Fast Turnaround</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-brand-500"></i> <span data-en="Genuine Parts" data-ta="அசல் உதிரிபாகங்கள்">Genuine Parts</span></div>
+                    </div>
+                </div>
+
+                <!-- Right: High Quality Image -->
+                <div class="hidden lg:block relative reveal active reveal-delay-2">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-600/20 to-transparent rounded-3xl transform translate-x-4 translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Computer Repair Expert" class="rounded-3xl shadow-2xl relative z-10 border border-gray-700/50 object-cover h-[500px] w-full">
+                    
+                    <!-- Floating trust badge -->
+                    <div class="absolute -left-8 top-12 bg-white p-4 rounded-2xl shadow-2xl z-20 animate-float border border-gray-100 flex items-center gap-4">
+                        <div class="bg-brand-100 p-3 rounded-full text-brand-600">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-900 font-bold text-lg leading-none">4.8/5</p>
+                            <p class="text-gray-500 text-xs mt-1" data-en="Customer Ratings" data-ta="வாடிக்கையாளர் மதிப்பீடு">Customer Ratings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02 — QUICK SERVICE GRID -->
+    <section id="services" class="py-20 relative -mt-16 z-20">
+        <div class="container mx-auto px-4 reveal">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-laptop-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-en="Laptop Repair" data-ta="லேப்டாப் சர்வீஸ்">Laptop Repair</h3>
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed" data-en="Screen replacement, keyboard issues, battery change, and full system service." data-ta="ஸ்கிரீன், கீபோர்டு, பேட்டரி மாற்றுதல் மற்றும் முழுமையான சர்வீஸ்.">Screen replacement, keyboard issues, battery change, and full system service.</p>
+                    <a href="https://wa.me/919043728522?text=I%20need%20help%20with%20Laptop%20Repair" class="text-brand-600 font-semibold hover:text-brand-800 flex items-center gap-2 text-sm">
+                        <span data-en="Enquire Now" data-ta="விசாரிக்க">Enquire Now</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group reveal-delay-1">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-en="Desktop Service" data-ta="டெஸ்க்டாப் சர்வீஸ்">Desktop Service</h3>
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed" data-en="Custom PC builds, hardware upgrades, OS installation, and virus removal." data-ta="புதிய பிசி அசெம்பிளிங், வன்பொருள் மேம்படுத்தல் மற்றும் ஓஎஸ் இன்ஸ்டாலேஷன்.">Custom PC builds, hardware upgrades, OS installation, and virus removal.</p>
+                    <a href="https://wa.me/919043728522?text=I%20need%20help%20with%20Desktop%20Service" class="text-brand-600 font-semibold hover:text-brand-800 flex items-center gap-2 text-sm">
+                        <span data-en="Enquire Now" data-ta="விசாரிக்க">Enquire Now</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group reveal-delay-2">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-en="Chip-Level Repair" data-ta="சிப்-லெவல் ரிப்பேர்">Chip-Level Repair</h3>
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed" data-en="Advanced motherboard repair, short-circuit fixing, and BIOS programming." data-ta="மதர்போர்டு பழுதுபார்த்தல் மற்றும் பயாஸ் (BIOS) ப்ரோக்ராமிங்.">Advanced motherboard repair, short-circuit fixing, and BIOS programming.</p>
+                    <a href="https://wa.me/919043728522?text=I%20need%20help%20with%20Chip-Level%20Repair" class="text-brand-600 font-semibold hover:text-brand-800 flex items-center gap-2 text-sm">
+                        <span data-en="Enquire Now" data-ta="விசாரிக்க">Enquire Now</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group reveal-delay-3">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 text-2xl mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-en="CCTV Installation" data-ta="சிசிடிவி அமைப்பு">CCTV Installation</h3>
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed" data-en="Professional security camera setup for home, office, and retail shops." data-ta="வீடு, அலுவலகம் மற்றும் கடைகளுக்கான தரமான சிசிடிவி கேமரா அமைப்பு.">Professional security camera setup for home, office, and retail shops.</p>
+                    <a href="https://wa.me/919043728522?text=I%20need%20help%20with%20CCTV%20Installation" class="text-brand-600 font-semibold hover:text-brand-800 flex items-center gap-2 text-sm">
+                        <span data-en="Enquire Now" data-ta="விசாரிக்க">Enquire Now</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 07 — DATA RECOVERY & STORAGE UPGRADES -->
+    <section id="data-recovery" class="py-20 bg-gray-900 text-white relative overflow-hidden">
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-brand-500 opacity-10 blur-[100px] rounded-full"></div>
+        <div class="container mx-auto px-4 relative z-10 reveal">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6" data-en="Lost Your Important Data?" data-ta="முக்கியமான டேட்டா அழிந்துவிட்டதா?">Lost Your Important Data?</h2>
+                    <p class="text-gray-300 mb-8 text-lg" data-en="Don't panic! We specialize in advanced data recovery from corrupted hard drives, dead laptops, and accidentally formatted storage devices." data-ta="கவலை வேண்டாம்! பழுதடைந்த ஹார்ட் டிஸ்க் மற்றும் லேப்டாப்களில் இருந்து டேட்டாவை பாதுகாப்பாக மீட்டெடுக்கிறோம்.">Don't panic! We specialize in advanced data recovery from corrupted hard drives, dead laptops, and accidentally formatted storage devices.</p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-200">
+                            <i class="fa-solid fa-hard-drive text-brand-400 text-xl"></i> <span>Hard Disk & SSD Recovery</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-200">
+                            <i class="fa-solid fa-sd-card text-brand-400 text-xl"></i> <span>Pen Drive & SD Card Recovery</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-200">
+                            <i class="fa-solid fa-rocket text-brand-400 text-xl"></i> <span>Slow PC? Upgrade to M.2 NVMe SSD</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="https://wa.me/919043728522?text=I%20need%20Data%20Recovery%20services" target="_blank" class="bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2 transition-colors">
+                        <i class="fa-solid fa-life-ring"></i> <span data-en="Recover Your Data Today" data-ta="டேட்டாவை மீட்டெடுக்கவும்">Recover Your Data Today</span>
+                    </a>
+                </div>
+                <div class="relative hidden md:block">
+                    <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Data Recovery" class="rounded-2xl shadow-2xl border border-gray-700 opacity-60 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500">
+                    <div class="absolute inset-0 bg-brand-500/20 rounded-2xl mix-blend-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11 — REVIEWS -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2" data-en="Customer Reviews" data-ta="வாடிக்கையாளர் கருத்துகள்">Customer Reviews</h2>
+                    <div class="flex items-center gap-2 text-brand-500 text-lg">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        <span class="text-gray-600 text-sm font-medium ml-2">4.8/5 on Google Reviews</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="showReviewModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2.5 rounded-xl font-medium transition-colors text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i> <span data-en="Write a Review" data-ta="மதிப்பாய்வு எழுதுக">Write a Review</span>
+                    </button>
+                    <a href="#" class="hidden md:block text-brand-600 font-medium hover:underline"><span data-en="View All &rarr;" data-ta="அனைத்தையும் காண்க &rarr;">View All &rarr;</span></a>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Review Card -->
+                <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow reveal reveal-delay-1">
+                    <div class="flex text-brand-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 mb-4 text-sm leading-relaxed">"Best laptop service in Tiruppur. My Dell laptop was completely dead. They repaired the motherboard chip instead of replacing it. Saved me a lot of money. Very professional."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://ui-avatars.com/api/?name=Karthikeyan+S&background=fef3b2&color=94550e" alt="K" class="w-10 h-10 rounded-full">
+                        <div>
+                            <h4 class="font-bold text-sm text-gray-900">Karthikeyan S.</h4>
+                            <p class="text-xs text-gray-500">Local Guide</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review Card -->
+                <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow reveal reveal-delay-2">
+                    <div class="flex text-brand-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 mb-4 text-sm leading-relaxed">"Upgraded my old slow laptop with an SSD and extra RAM. Now it works like a brand new machine. Done within 2 hours. Excellent and fast service by the Limra team."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://ui-avatars.com/api/?name=Priya+R&background=f4b61b&color=ffffff" alt="P" class="w-10 h-10 rounded-full">
+                        <div>
+                            <h4 class="font-bold text-sm text-gray-900">Priya R.</h4>
+                            <p class="text-xs text-gray-500">Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review Card -->
+                <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow reveal reveal-delay-3">
+                    <div class="flex text-brand-400 text-sm mb-3">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 mb-4 text-sm leading-relaxed">"Installed 8 CCTV cameras for my garment factory. Very neat wiring work and mobile setup was explained clearly. Affordable quotation compared to others. Highly recommended."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://ui-avatars.com/api/?name=Muthu+Kumar&background=fffbe0&color=b76e09" alt="M" class="w-10 h-10 rounded-full">
+                        <div>
+                            <h4 class="font-bold text-sm text-gray-900">Muthu Kumar</h4>
+                            <p class="text-xs text-gray-500">Business Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 15 — FINAL CTA SECTION -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 reveal">
+            <div class="bg-gradient-to-r from-brand-600 to-brand-500 rounded-3xl p-10 md:p-16 text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-black opacity-10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+                
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 relative z-10" data-en="Need Immediate Computer Support?" data-ta="உடனடி கணினி உதவி தேவையா?">Need Immediate Computer Support?</h2>
+                <p class="text-brand-100 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our expert technicians are ready to diagnose and fix your devices. Fast, reliable, and affordable service in Tiruppur.</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+                    <a href="https://wa.me/919043728522" class="bg-white text-brand-700 px-8 py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3 shadow-xl hover:bg-gray-50 transition-colors">
+                        <i class="fa-brands fa-whatsapp text-whatsapp text-2xl"></i> <span data-en="Chat on WhatsApp" data-ta="வாட்ஸ்அப்பில் மெசேஜ் செய்">Chat on WhatsApp</span>
+                    </a>
+                    <a href="tel:+919043728522" class="bg-black/20 hover:bg-black/30 text-white border border-white/30 px-8 py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3 transition-colors">
+                        <i class="fa-solid fa-phone"></i> <span>90437 28522</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-950 pt-20 pb-10 text-gray-400 border-t border-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+                <!-- Col 1 -->
+                <div>
+                    <img src="image_383b82.png" alt="Limra Computers" class="h-12 mb-6 brightness-0 invert opacity-90">
+                    <p class="text-sm leading-relaxed mb-6">Your Trusted Technology Service Partner for Repair, Upgrade, Sales, and Security Solutions in Tiruppur.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-colors"><i class="fa-brands fa-google"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#home" class="hover:text-brand-400 transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-brand-400 transition-colors">About Us</a></li>
+                        <li><a href="#services" class="hover:text-brand-400 transition-colors">Services</a></li>
+                        <li><a href="#contact" class="hover:text-brand-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Services</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Laptop Repair</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Desktop Repair</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">CCTV Installation</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Data Recovery</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Contact Info</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-brand-500"></i>
+                            <span>Tiruppur, Tamil Nadu, India</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-brand-500"></i>
+                            <span>+91 90437 28522</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-brand-500"></i>
+                            <span>+91 90437 28522</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <p>&copy; 2024 Limra Computers. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING ELEMENTS -->
+    <a href="https://wa.me/919043728522" target="_blank" class="fixed bottom-6 left-6 z-40 bg-whatsapp hover:bg-whatsapp-hover text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(37,211,102,0.4)] transition-transform hover:scale-110">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 z-40 bg-brand-600 hover:bg-brand-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(244,182,27,0.4)] transition-transform hover:scale-110">
+        <i class="fa-solid fa-robot text-2xl"></i>
+    </button>
+
+    <!-- AI CHAT WIDGET -->
+    <div id="ai-chat" class="fixed bottom-24 right-6 z-50 w-80 sm:w-96 glass-panel rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[500px] chat-closed transition-all duration-300 origin-bottom-right">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-brand-600 to-brand-500 p-4 flex justify-between items-center text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-robot text-xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold">Limra AI Assistant</h4>
+                    <p class="text-xs text-brand-100 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-400 block"></span> Online</p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-white hover:text-gray-200"><i class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+        
+        <!-- Messages Area -->
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-50/50 flex flex-col gap-4">
+            <div class="bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm text-sm text-gray-700 w-[85%] border border-gray-100">
+                Hello! 👋 Welcome to Limra Computers. I'm here to help. What kind of service are you looking for today?
+            </div>
+            <!-- Quick Suggestions -->
+            <div class="flex flex-wrap gap-2 mt-2">
+                <button onclick="sendQuickReply('Laptop Repair')" class="text-xs bg-brand-50 text-brand-700 border border-brand-200 px-3 py-1.5 rounded-full hover:bg-brand-100 transition-colors">Laptop Repair</button>
+                <button onclick="sendQuickReply('Data Recovery')" class="text-xs bg-brand-50 text-brand-700 border border-brand-200 px-3 py-1.5 rounded-full hover:bg-brand-100 transition-colors">Data Recovery</button>
+                <button onclick="sendQuickReply('CCTV Installation')" class="text-xs bg-brand-50 text-brand-700 border border-brand-200 px-3 py-1.5 rounded-full hover:bg-brand-100 transition-colors">CCTV Installation</button>
+            </div>
+        </div>
+        
+        <!-- Input Area -->
+        <div class="p-3 bg-white border-t border-gray-100 flex gap-2">
+            <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <button onclick="handleSend()" class="w-10 h-10 bg-brand-500 text-white rounded-full flex items-center justify-center hover:bg-brand-600 transition-colors">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- CUSTOM MODAL (Used for Alerts without using native alert()) -->
+    <div id="custom-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div id="custom-modal-content" class="bg-white rounded-2xl p-6 md:p-8 max-w-sm w-[90%] relative z-10 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-4 mx-auto">
+                <i id="modal-icon" class="fa-solid fa-circle-info"></i>
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold text-center text-gray-900 mb-2">Notice</h3>
+            <p id="modal-message" class="text-center text-gray-600 mb-6 text-sm">Action completed successfully.</p>
+            <button onclick="closeModal()" class="w-full bg-brand-500 hover:bg-brand-600 text-white py-3 rounded-xl font-bold transition-colors">Got it</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Custom Modal Logic
+        function showModal(title, message, iconClass = 'fa-solid fa-circle-info') {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            document.getElementById('modal-icon').className = iconClass;
+            
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('custom-modal-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('custom-modal-content');
+            
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 150);
+        }
+
+        // Review Modal
+        function showReviewModal() {
+            showModal("Write a Review", "Thank you for your interest! To ensure authenticity, we collect reviews directly on our Google My Business page. We will redirect you shortly.");
+        }
+
+        // Language Toggle Logic
+        let currentLang = 'en';
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ta' : 'en';
+            
+            // Find all elements with data-en and data-ta attributes
+            const elements = document.querySelectorAll('[data-en][data-ta]');
+            
+            elements.forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+
+            showModal("Language Changed", currentLang === 'en' ? "Language set to English." : "மொழி தமிழுக்கு மாற்றப்பட்டுள்ளது.");
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // AI Chat Widget Logic
+        function toggleChat() {
+            const chat = document.getElementById('ai-chat');
+            if (chat.classList.contains('chat-closed')) {
+                chat.classList.remove('chat-closed');
+                chat.classList.add('chat-open');
+                document.getElementById('chat-input').focus();
+            } else {
+                chat.classList.remove('chat-open');
+                chat.classList.add('chat-closed');
+            }
+        }
+
+        function appendUserMessage(text) {
+            const msgHtml = `
+                <div class="self-end bg-brand-500 text-white p-3 rounded-2xl rounded-tr-sm shadow-sm text-sm max-w-[85%]">
+                    ${text}
+                </div>
+            `;
+            document.getElementById('chat-messages').insertAdjacentHTML('beforeend', msgHtml);
+            scrollToBottom();
+        }
+
+        function appendBotMessage(text) {
+            const msgHtml = `
+                <div class="self-start bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm text-sm text-gray-700 max-w-[85%] border border-gray-100">
+                    ${text}
+                </div>
+            `;
+            document.getElementById('chat-messages').insertAdjacentHTML('beforeend', msgHtml);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            const container = document.getElementById('chat-messages');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleSend() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+            
+            appendUserMessage(text);
+            input.value = '';
+            
+            // Mock AI Response
+            setTimeout(() => {
+                appendBotMessage("Thanks for reaching out! To give you the best quote, could you please contact our technician directly on WhatsApp?");
+                
+                const waBtn = `
+                    <div class="mt-2">
+                        <a href="https://wa.me/919043728522" target="_blank" class="inline-block bg-whatsapp text-white px-4 py-2 rounded-lg text-xs font-bold">Connect on WhatsApp</a>
+                    </div>
+                `;
+                document.getElementById('chat-messages').insertAdjacentHTML('beforeend', waBtn);
+                scrollToBottom();
+            }, 1000);
+        }
+
+        function sendQuickReply(text) {
+            appendUserMessage(text);
+            
+            setTimeout(() => {
+                let reply = "We can certainly help with that!";
+                if(text === 'Laptop Repair') reply = "We handle all laptop brands. Issues like dead display, motherboard short, or hinge repair are done usually within 24 hours.";
+                if(text === 'Data Recovery') reply = "Data recovery requires physical inspection. Bring your hard drive to our Tiruppur center for a free evaluation.";
+                if(text === 'CCTV Installation') reply = "We do professional CCTV setups for homes and businesses. Our team can visit your location in Tiruppur for a free site survey.";
+                
+                appendBotMessage(reply);
+            }, 800);
+        }
+
+        // Intersection Observer for Scroll Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Programmatically add reveal animations to all section containers
+            const sections = document.querySelectorAll('section > .container');
+            sections.forEach(section => {
+                if(!section.classList.contains('reveal')) {
+                    section.classList.add('reveal');
+                    observer.observe(section);
+                }
+            });
+            
+            // Allow 'Enter' key to send message in chat
+            document.getElementById('chat-input').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    handleSend();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
