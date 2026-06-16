@@ -386,10 +386,26 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 900) setMenu(false);
 });
 
+let scrollTicking = false;
+
+function updateScrollEffects() {
+  const y = window.scrollY || document.documentElement.scrollTop || 0;
+  header.classList.toggle('scrolled', y > 20);
+  toTop.classList.toggle('show', y > 500);
+  const progress = Math.min(y / 720, 1);
+  document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(3));
+  document.documentElement.style.setProperty('--hero-copy-y', `${(-18 * progress).toFixed(2)}px`);
+  document.documentElement.style.setProperty('--hero-visual-y', `${(18 * progress).toFixed(2)}px`);
+  document.documentElement.style.setProperty('--hero-visual-scale', (1 - (0.025 * progress)).toFixed(4));
+  scrollTicking = false;
+}
+
 window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 20);
-  toTop.classList.toggle('show', window.scrollY > 500);
-});
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(updateScrollEffects);
+}, { passive: true });
+updateScrollEffects();
 
 toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
@@ -442,6 +458,23 @@ document.getElementById('aiChatForm').addEventListener('submit', event => {
   aiInput.value = '';
 });
 
+const revealGroups = [
+  '.service-card',
+  '.plan-card',
+  '.process-grid article',
+  '.gallery-item',
+  '.stats-grid div',
+  '.review-trust-grid article',
+  '.faq-list details',
+  '.footer-column'
+];
+
+revealGroups.forEach(selector => {
+  document.querySelectorAll(selector).forEach((element, index) => {
+    element.style.setProperty('--reveal-delay', `${Math.min(index * 80, 360)}ms`);
+  });
+});
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -449,7 +482,7 @@ const observer = new IntersectionObserver(entries => {
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
 document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
 
 document.querySelectorAll('.service-filters button').forEach(button => {
